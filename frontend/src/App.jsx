@@ -12,35 +12,32 @@ import IndiBotApp from "./pages/IndiBotApp";
 import PlaceDetails from "./pages/PlaceDetails";
 import SavedPlaces from "./pages/SavedPlaces";
 
-// inside <Route path="/app" ... >
-
-
-// inside <Route path="/app" ... >
-
-
-
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Public */}
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
+        {/* Protected App */}
         <Route
           path="/app"
           element={
             <ProtectedRoute>
               <AppLayout />
-              <Route path="place/:id" element={<PlaceDetails />} />
             </ProtectedRoute>
           }
         >
-          <Route path="home" element={<HomeApp />} />
+          {/* DEFAULT PAGE */}
+          <Route index element={<HomeApp />} />
+
+          {/* APP PAGES */}
           <Route path="explore" element={<ExploreApp />} />
           <Route path="indibot" element={<IndiBotApp />} />
           <Route path="saved" element={<SavedPlaces />} />
-
+          <Route path="place/:id" element={<PlaceDetails />} />
         </Route>
       </Routes>
     </BrowserRouter>

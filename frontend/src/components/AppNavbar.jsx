@@ -1,53 +1,65 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const AppNavbar = () => {
-  const navigate = useNavigate();
-
-  const logout = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
-  };
-
   const linkClass = ({ isActive }) =>
-    isActive
-      ? "text-orange-400 font-semibold"
-      : "hover:text-orange-300";
+    `relative px-4 py-2 transition-colors duration-300 font-medium ${
+      isActive ? "text-white" : "text-gray-400 hover:text-white"
+    }`;
+
+  const activeIndicator = (isActive) =>
+    isActive ? (
+      <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-orange-500 to-red-500 shadow-[0_0_10px_rgba(255,94,58,0.7)]" />
+    ) : null;
 
   return (
-    <nav className="w-full h-16 bg-slate-900 border-b border-white/10 px-10 flex items-center justify-between">
+    <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-4 glass-panel border-b border-white/5">
+      {/* Logo Area */}
+      <div className="text-2xl font-bold tracking-tighter">
+        <span className="text-white">Bharat</span>
+        <span className="text-gradient-accent">View</span>
+      </div>
 
-      {/* Logo */}
-      <h1
-        onClick={() => navigate("/app/home")}
-        className="text-2xl font-bold cursor-pointer"
-      >
-        Bharat<span className="text-orange-500">View</span>
-      </h1>
-
-      {/* Navigation */}
-      <div className="flex gap-10 text-lg">
-        <NavLink to="/app/home" className={linkClass}>
-          Home
+      {/* Navigation Links */}
+      <div className="flex gap-2 bg-black/20 p-1 rounded-full border border-white/5 backdrop-blur-md">
+        <NavLink to="/app" end className={linkClass}>
+          {({ isActive }) => (
+            <>
+              Home
+              {activeIndicator(isActive)}
+            </>
+          )}
         </NavLink>
+
         <NavLink to="/app/explore" className={linkClass}>
-          Explore
+          {({ isActive }) => (
+            <>
+              Explore
+              {activeIndicator(isActive)}
+            </>
+          )}
         </NavLink>
+
         <NavLink to="/app/saved" className={linkClass}>
-          Saved ❤️
+          {({ isActive }) => (
+            <>
+              Saved
+              {activeIndicator(isActive)}
+            </>
+          )}
         </NavLink>
 
         <NavLink to="/app/indibot" className={linkClass}>
-          IndiBot
+          {({ isActive }) => (
+            <>
+              IndiBot 🤖
+              {activeIndicator(isActive)}
+            </>
+          )}
         </NavLink>
       </div>
 
-      {/* Logout */}
-      <button
-        onClick={logout}
-        className="bg-red-500 px-5 py-2 rounded text-sm font-semibold"
-      >
-        Logout
-      </button>
+      {/* User Profile / Action */}
+      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-orange-500 to-red-600 shadow-lg border border-white/20"></div>
     </nav>
   );
 };
