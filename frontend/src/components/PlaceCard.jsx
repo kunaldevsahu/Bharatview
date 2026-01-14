@@ -1,39 +1,41 @@
 import { useNavigate } from "react-router-dom";
+import { FaStar, FaMapMarkerAlt } from "react-icons/fa";
 
 const PlaceCard = ({ place }) => {
   const navigate = useNavigate();
 
-
   if (!place) {
-  return (
-    <div className="animate-pulse space-y-6">
-      <div className="h-[50vh] bg-white/10 rounded-xl"></div>
-      <div className="h-6 bg-white/10 w-1/2 rounded"></div>
-      <div className="h-4 bg-white/10 w-full rounded"></div>
-    </div>
-  );
-}
-
+    return (
+      <div className="aspect-[4/5] bg-zinc-900 rounded-lg animate-pulse" />
+    );
+  }
 
   return (
     <div
       onClick={() => navigate(`/app/place/${place._id}`)}
-      className="bg-white/10 rounded-xl overflow-hidden cursor-pointer hover:scale-105 transition"
+      className="glass-card rounded-lg overflow-hidden cursor-pointer group"
     >
-      <img
-        src={place.images?.[0]}
-        alt={place.name}
-        className="h-44 w-full object-cover"
-      />
+      <div className="relative aspect-[4/5] overflow-hidden">
+        <img
+          src={place.images?.[0] || 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800'}
+          alt={place.name}
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
 
-      <div className="p-4">
-        <h3 className="text-lg font-semibold">{place.name}</h3>
-        <p className="text-sm text-gray-300">
-          {place.city}, {place.state}
-        </p>
-        <p className="text-sm mt-2 text-gray-400">
-          {place.shortDescription}
-        </p>
+        <div className="absolute bottom-4 left-4 right-4">
+          <div className="flex items-center gap-1 text-orange-500 text-xs font-bold mb-1">
+            <FaStar size={10} />
+            {place.rating || "4.5"}
+          </div>
+          <h3 className="card-title text-white mb-1 group-hover:text-orange-400 transition-colors line-clamp-1">
+            {place.name}
+          </h3>
+          <div className="flex items-center gap-1 text-[10px] text-gray-400">
+            <FaMapMarkerAlt size={8} />
+            <span className="line-clamp-1">{place.city}, {place.state}</span>
+          </div>
+        </div>
       </div>
     </div>
   );

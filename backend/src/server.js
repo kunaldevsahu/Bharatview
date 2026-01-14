@@ -1,11 +1,10 @@
 const connectDB = require("./config/db")
 const app = require("./app")
 const dotenv = require("dotenv")
-dotenv.config()
+const path = require("path")
+dotenv.config({ path: path.join(__dirname, "../.env") })
 const PORT = process.env.PORT || 3000
 connectDB()
-
-dotenv.config
 
 app.get("/",(req,res)=>{
   res.send("Hello users")

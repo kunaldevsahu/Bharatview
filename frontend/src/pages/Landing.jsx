@@ -1,100 +1,118 @@
-import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
+import { Button } from '../components/ui/button';
+import { MapPin, Compass, Bot, Heart } from 'lucide-react';
+import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 
-const Landing = () => {
-  const navigate = useNavigate();
-
+export default function Landing() {
   return (
-    <div className="min-h-screen bg-black text-white selection:bg-orange-500 selection:text-white">
-      {/* HERO SECTION */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        {/* Background Image */}
+    <div className="min-h-screen bg-white">
+      {/* Hero Section */}
+      <div className="relative h-[600px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img
-            src="https://images.unsplash.com/photo-1598503258605-05f3196e1984?q=80&w=2070&auto=format&fit=crop"
-            alt="India Heritage"
-            className="w-full h-full object-cover opacity-60"
+          <ImageWithFallback
+            src="https://images.unsplash.com/photo-1706765600789-8b5fdc8ece1b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxpbmRpYSUyMHRvdXJpc20lMjBkaXZlcnNlJTIwbGFuZHNjYXBlfGVufDF8fHx8MTc2ODIyNzI2NXww&ixlib=rb-4.1.0&q=80&w=1080"
+            alt="India Tourism"
+            className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/30" />
+          <div className="absolute inset-0 bg-black bg-opacity-50"></div>
         </div>
 
-        {/* Hero Content */}
-        <div className="relative z-10 text-center max-w-4xl px-4 animate-fade-in">
-          <div className="mb-4 inline-block px-4 py-1.5 rounded-full border border-white/20 bg-white/5 backdrop-blur-md text-sm font-medium tracking-wide text-orange-400">
-            ✨ Experience Incredible India
-          </div>
-          <h1 className="text-7xl md:text-8xl font-black mb-6 tracking-tight leading-none font-display">
-            Bharat<span className="text-gradient-accent">View.</span>
+        <div className="relative z-10 text-center px-4 max-w-4xl">
+          <h1 className="text-5xl md:text-6xl mb-6 text-white font-bold">
+            Discover India, One Place at a Time
           </h1>
-          <p className="text-xl md:text-2xl text-gray-300 mb-10 font-light max-w-2xl mx-auto leading-relaxed tracking-wide font-sans">
-            Discover the soul of India through its majestic heritage, spiritual
-            sanctuaries, and breathtaking landscapes.
+          <p className="text-xl md:text-2xl mb-8 text-gray-200">
+            Your AI-powered journey through India's rich heritage, stunning nature, and spiritual wonders
           </p>
-
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-            <button
-              onClick={() => navigate("/login")}
-              className="px-8 py-4 bg-orange-600 hover:bg-orange-500 text-white rounded-full font-bold text-lg shadow-[0_0_20px_rgba(234,88,12,0.4)] transition-all hover:scale-105 active:scale-95"
-            >
-              Start Exploring
-            </button>
-            <button
-              onClick={() => navigate("/register")}
-              className="px-8 py-4 rounded-full font-bold text-lg border border-white/20 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all hover:scale-105"
-            >
-              Create Account
-            </button>
+          <div className="flex gap-4 justify-center">
+            <Button asChild size="lg" className="bg-orange-600 hover:bg-orange-700 text-white">
+              <Link to="/register">Start Exploring</Link>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="bg-white text-gray-900 hover:bg-gray-100">
+              <Link to="/login">Sign In</Link>
+            </Button>
           </div>
         </div>
-      </section>
+      </div>
 
-      {/* FEATURES SECTION */}
-      <section className="py-32 px-6 relative z-10 bg-black">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-20">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              Why <span className="text-gradient-accent">BharatView?</span>
-            </h2>
-            <p className="text-gray-400 text-lg">
-              Unlock the secrets of India with our premium travel companion.
+      {/* Features Section */}
+      <div className="max-w-7xl mx-auto px-4 py-16">
+        <h2 className="text-3xl text-center mb-12 text-gray-900 font-bold">
+          Why Choose BharatView?
+        </h2>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="text-center">
+            <div className="bg-orange-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+              <Compass className="h-8 w-8 text-orange-600" />
+            </div>
+            <h3 className="text-xl mb-2 text-gray-900 font-semibold">Explore Destinations</h3>
+            <p className="text-gray-600">
+              Discover India's diverse tourism spots across Heritage, Nature, Spiritual, and Adventure categories
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <FeatureCard
-              icon="🏰"
-              title="Heritage & Culture"
-              desc="Dive deep into the rich history of ancient monuments and cultural landmarks."
-            />
-            <FeatureCard
-              icon="🤖"
-              title="AI Guide (IndiBot)"
-              desc="Your personal AI travel assistant. Ask anything, anytime, anywhere."
-            />
-            <FeatureCard
-              icon="📍"
-              title="Curated Places"
-              desc="Handpicked destinations that offer the most authentic Indian experience."
-            />
+          <div className="text-center">
+            <div className="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+              <Bot className="h-8 w-8 text-green-600" />
+            </div>
+            <h3 className="text-xl mb-2 text-gray-900 font-semibold">IndiBot Assistant</h3>
+            <p className="text-gray-600">
+              Ask natural language questions and get personalized destination recommendations instantly
+            </p>
+          </div>
+
+          <div className="text-center">
+            <div className="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+              <MapPin className="h-8 w-8 text-blue-600" />
+            </div>
+            <h3 className="text-xl mb-2 text-gray-900 font-semibold">Rich Information</h3>
+            <p className="text-gray-600">
+              Get detailed descriptions, historical context, budget guides, and interactive maps for each destination
+            </p>
+          </div>
+
+          <div className="text-center">
+            <div className="bg-red-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+              <Heart className="h-8 w-8 text-red-600" />
+            </div>
+            <h3 className="text-xl mb-2 text-gray-900 font-semibold">Save & Plan</h3>
+            <p className="text-gray-600">
+              Save your favorite places and build your personalized travel itinerary
+            </p>
           </div>
         </div>
-      </section>
+      </div>
 
-      {/* FOOTER */}
-      <footer className="py-12 border-t border-white/10 bg-black text-center text-gray-500">
-        <p>&copy; {new Date().getFullYear()} BharatView. Made with ❤️ for India.</p>
+      {/* CTA Section */}
+      <div className="bg-orange-600 text-white py-16">
+        <div className="max-w-4xl mx-auto text-center px-4">
+          <h2 className="text-3xl mb-4 font-bold">
+            Ready to Explore Incredible India?
+          </h2>
+          <p className="text-xl mb-8 text-orange-100">
+            Join thousands of travelers discovering India's hidden gems
+          </p>
+          <Button asChild size="lg" variant="outline" className="bg-white text-orange-600 hover:bg-gray-100">
+            <Link to="/register">Get Started Free</Link>
+          </Button>
+        </div>
+      </div>
+
+      <footer className="py-12 border-t border-gray-100 bg-gray-50 text-gray-600">
+        <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8">
+          <div className="text-xl font-bold text-gray-900 tracking-tighter flex items-center gap-2">
+            <MapPin className="h-6 w-6 text-orange-600" />
+            BharatView
+          </div>
+          <div className="flex gap-8 text-sm">
+            <a href="#" className="hover:text-orange-600 transition-colors">Privacy Policy</a>
+            <a href="#" className="hover:text-orange-600 transition-colors">Terms of Service</a>
+            <a href="#" className="hover:text-orange-600 transition-colors">Contact Us</a>
+          </div>
+          <p className="text-sm">&copy; {new Date().getFullYear()} BharatView. Built for the Incredible India.</p>
+        </div>
       </footer>
     </div>
   );
-};
-
-const FeatureCard = ({ icon, title, desc }) => (
-  <div className="glass-card p-10 rounded-2xl group cursor-pointer hover:bg-white/5">
-    <div className="text-5xl mb-6 group-hover:scale-110 transition-transform duration-300">
-      {icon}
-    </div>
-    <h3 className="text-2xl font-bold mb-3 text-white">{title}</h3>
-    <p className="text-gray-400 leading-relaxed">{desc}</p>
-  </div>
-);
-
-export default Landing;
+}

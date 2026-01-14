@@ -6,44 +6,30 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 // Select model
 const model = genAI.getGenerativeModel({
-  model: "gemini-2.5-flash",
+  model: "gemini-flash-latest",
 });
 
-const generateItinerary = async (prompt) => {
-  const enhancedPrompt = `
-You are IndiBot, an expert Indian travel planner.
+const generateAIResponse = async (prompt) => {
+  try {
+    const result = await model.generateContent(prompt);
+    const responseText = result.response.text();
+    console.log("Raw Gemini Response:", responseText);
 
-User request:
-${prompt}
-
-Respond ONLY in valid JSON.
-DO NOT include explanations or markdown.
-DO NOT include extra text.
-
-JSON FORMAT:
-{
-  "title": "",
-  "days": [
-    {
-      "day": 1,
-      "title": "",
-      "activities": []
+    const cleanedText = responseText.replace(/```json|```/g, "").trim();
+    
+    try {
+      return JSON.parse(cleanedText);
+    } catch (err) {
+      console.error("AI Response not valid JSON. Cleaned Text:", cleanedText);
+      return cleanedText; // Return string if parsing fails
     }
-  ],
-  "bestSeason": "",
-  "budgetEstimate": "",
-  "foodRecommendations": [],
-  "tips": []
-}
-`;
-
-  const result = await model.generateContent(enhancedPrompt);
-
-  // Gemini sometimes adds spaces/newlines – still valid JSON
-  return JSON.parse(result.response.text());
+  } catch (error) {
+    console.error("Gemini API Error:", error);
+    throw error;
+  }
 };
 
-module.exports = { generateItinerary };
+module.exports = { generateAIResponse };
 
 
 
